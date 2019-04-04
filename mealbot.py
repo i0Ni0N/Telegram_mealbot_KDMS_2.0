@@ -54,41 +54,22 @@ updates = bot.getUpdates()
 chat_id = updates[-1].message.chat.id
 
 #커스텀 키보드 설정
-bot.send_message(chat_id=chat_id, text="Start 경덕중학교 급식봇, 커스텀 키보드 설정완료!",  reply_markup=reply_markup)
+bot.send_message(chat_id=chat_id, text="Start 성복중학교 급식봇, 커스텀 키보드 설정완료!",  reply_markup=reply_markup)
 
 #시간설정
 n = time.localtime().tm_wday
 now = datetime.datetime.now()
 
 #초기설정 성공 안내
-print("Start 경덕중학교 급식봇")
+print("Start 성복중학교 급식봇")
 
 #도움말
 def help_command(bot, update) :
-    update.message.reply_text("급식봇 도움말\n이 봇은 경덕중학교의 급식을 알려주는 봇입니다.\n\n<공지> 최초 개발자 : 안재범\n 소스코드(Github) : https://github.com/NewPremium/Telegram_mealbot_KDMS_2.0", reply_markup=reply_markup)
-    update.message.reply_text("모든 명령어 : \n\n*도움말\n/help - 이 도움말을 표시합니다.\n\n*급식\n어제 급식 - 어제의 급식을 알려드립니다.\n오늘 급식 - 오늘의 급식을 알려드립니다.\n내일 급식 - 내일의 급식을 알려드립니다.\n이틀뒤 급식 - 이틀뒤 급식을 알려드립니다.\n3일뒤 급식 - 3일뒤 급식을 알려드립니다.\n4일뒤 급식 - 4일뒤 급식을 알려드립니다.\n\n*미세먼지\n미세 - 안동시 미세먼지 지수를 알려드립니다.\n\n*경덕중학교\n경덕중 - 경덕중학교 사이트 링크를 전송합니다.\n학생회 - 경덕중학교 학생회 페이스북 링크를 전송합니다.\n\n*포털사이트 바로가기\n구글 - 구글 링크를 전송합니다.\n네이버 - 네이버 링크를 전송합니다.\n다음 - 다음 링크를 전송합니다.\n프로톤 메일 - 프로톤메일 링크를 전송합니다.\n깃허브 - 깃허브 링크를 전송합니다.\n페이스북 - 페이스북 링크를 전송합니다.\n인스타 - 인스타그램 링크를 전송합니다.\n\n*시간, 날짜\n날짜 - 오늘의 날짜를 알려줍니다.\n시간 - 현재 시간을 알려줍니다.\n\n*chat_id\nid - 당신의 chat_id를 알려드립니다.")
+    update.message.reply_text("급식봇 도움말\n이 봇은 성복중학교의 급식을 알려주는 봇입니다.\n\n<공지> 최초 개발자 : 안재범\n 소스코드(Github) : https://github.com/NewPremium/Telegram_mealbot_KDMS_2.0", reply_markup=reply_markup)
+    update.message.reply_text("모든 명령어 : \n\n*도움말\n/help - 이 도움말을 표시합니다.\n\n*급식\n어제 급식 - 어제의 급식을 알려드립니다.\n오늘 급식 - 오늘의 급식을 알려드립니다.\n내일 급식 - 내일의 급식을 알려드립니다.\n이틀뒤 급식 - 이틀뒤 급식을 알려드립니다.\n3일뒤 급식 - 3일뒤 급식을 알려드립니다.\n4일뒤 급식 - 4일뒤 급식을 알려드립니다.\n\n*미세먼지\n미세 - 용인시 미세먼지 지수를 알려드립니다.\n\n*성복중학교\n성복중 - 성복중학교 사이트 링크를 전송합니다.\n\n*포털사이트 바로가기\n구글 - 구글 링크를 전송합니다.\n네이버 - 네이버 링크를 전송합니다.\n다음 - 다음 링크를 전송합니다.\n프로톤 메일 - 프로톤메일 링크를 전송합니다.\n깃허브 - 깃허브 링크를 전송합니다.\n페이스북 - 페이스북 링크를 전송합니다.\n인스타 - 인스타그램 링크를 전송합니다.\n\n*시간, 날짜\n날짜 - 오늘의 날짜를 알려줍니다.\n시간 - 현재 시간을 알려줍니다.\n\n*chat_id\nid - 당신의 chat_id를 알려드립니다.")
 
 #일반 메시지
 def get_message(bot, update) :
-
-    #로그 용량 확인및 초기화 (로그파일이 200GB 이상일때 초기화) - mealbot.py 파일과 같은폴더에 건의log.txt 파일을 두어야 함
-    log_byte = os.path.getsize("건의log.txt")
-    filesize_megabyte = log_byte / (1024.0 ** 2)
-    if filesize_megabyte >= 200000:
-        now = datetime.datetime.now()
-        file = open("건의log.txt", 'w')
-        file.write("%s년 %s월 %s일 용량초과로 로그 초기화\n"%(now.year, now.month, now.day))
-        file.close()
-    
-    file = open("day.txt", 'r')
-    dday=file.read()
-    file.close()
-    today = date.today()
-    if not dday==today.strftime('%Y.%m.%d'):
-        update.message.reply_text("서버에 급식 데이터 다운로드중. . .")
-
-        now = datetime.datetime.now()
-        n = time.localtime().tm_wday
         
         #데이터베이스 버전 업데이트
         file = open("day.txt", 'w')
@@ -249,11 +230,11 @@ def get_message(bot, update) :
         dday=file.read()
         file.close()
         #최초개발자 수정 금지
-        update.message.reply_text("<경덕중학교 급식봇 정보>\n\n급식 데이터베이스 : %s\n최초 개발자 : 안재범 (https://github.com/NewPremium)" %(dday))
+        update.message.reply_text("<성복중학교 급식봇 정보>\n\n급식 데이터베이스 : %s\n최초 개발자 : 안재범 (https://github.com/NewPremium)" %(dday))
 
     #미세먼지
     if update.message.text[0:2]=="미세":
-        targetUrl = "http://aqicn.org/city/korea/gyeongbuk/andong-si/" #링크로 들어가서 자신 지역에 가장 가까운 검역소 찾은후 클릭후 링크 복붙
+        targetUrl = "http://aqicn.org/city/suwon/" #링크로 들어가서 자신 지역에 가장 가까운 검역소 찾은후 클릭후 링크 복붙
         html = urlopen(targetUrl).read()
         soupData = BeautifulSoup(html, 'html.parser')
         titleData = soupData.find('a', id='aqiwgttitle1')
@@ -292,61 +273,8 @@ def get_message(bot, update) :
     if update.message.text[0:2]=="시간":
         now = datetime.datetime.now()
         update.message.reply_text("현재 시간 : \n%s시 %s분 %s초 입니다." %(now.hour,now.minute, now.second))
-
-    #전교회장에게 건의
-    if update.message.text[0:4]=="전교회장":
-        updates=bot.getUpdates()
-        chat_id = updates[-1].message.chat.id #chat_id 설정
-        msgformg=update.message.text[5:]
-        print("전교회장에게 건의 - %s - %s" %(chat_id, msgformg))
-        file = open("건의log.txt", 'a')
-        file.write("전교회장에게 건의 - %s - %s\n" %(chat_id, msgformg))
-        file.close()
-        bot.send_message(chat_id=(***전교회장의 chat_id - 괄호도 빼고 chat_id 입력***), text="익명으로 건의합니다! : %s" %(msgformg))
-        update.message.reply_text("익명으로된 건의가 안전하게 전교회장님께 전달되었습니다. 감사합니다.\n이 작업은 취소할 수 없습니다.")
-
-    #개발자에게 건의
-    if update.message.text[0:3]=="개발자":
-        updates = bot.getUpdates()
-        chat_id = updates[-1].message.chat.id
-        msgfordv=update.message.text[4:]
-        print("개발자에게 건의 - %s - %s" %(chat_id, msgfordv))
-        file = open("건의log.txt", 'a')
-        file.write("개발자에게 건의 - %s - %s\n" %(chat_id, msgfordv))
-        file.close()
-        bot.send_message(chat_id=(***서버구축자의 chat_id, 만약 서버 구축자가 전교회장이라면 개발자에게 건의 항목은 제거바람 - 괄호도 빼고 chat_id 입력***), text="익명으로 건의합니다! : %s" %(msgfordv))
-        update.message.reply_text("익명으로된 건의가 안전하게 개발자님께 전달되었습니다. 감사합니다.\n이 작업은 취소할 수 없습니다.")
-
-    #로그 초기화
-    if update.message.text[0:4]=="dlog":
-        updates = bot.getUpdates()
-        chat_id = updates[-1].message.chat.id #chat_id 설정
-        if chat_id == (***원하는 사람의 chat_id - 전교회장같은분 - 괄호도 빼고 chat_id 입력***) or chat_id == (***원하는 사람의 chat_id - 전교회장같은분 - 괄호도 빼고 chat_id 입력***):
-            now = datetime.datetime.now()
-            update.message.reply_text("로그 초기화중. . .")
-            file = open("건의log.txt", 'w') #로그 초기화
-            file.write("%s년 %s월 %s일 - %s 로 인해 초기화됨 \n" %(now.year, now.month, now.day, chat_id))
-            file.close()
-            update.message.reply_text("%s년 %s월 %s일 - %s 로 인해 초기화됨 \n" %(now.year, now.month, now.day, chat_id))
-        else:
-            update.message.reply_text("권한이 없습니다.")
-            print("%s 님은 로그에 접근 권한이 없습니다." %(chat_id))
-
-    #로그 조회
-    if update.message.text[0:3]=="log":
-        updates = bot.getUpdates()
-        chat_id = updates[-1].message.chat.id #chat_id 설정
-        if chat_id == (***원하는 사람의 chat_id - 전교회장같은분 - 괄호도 빼고 chat_id 입력***) or chat_id == (***원하는 사람의 chat_id - 전교회장같은분 - 괄호도 빼고 chat_id 입력***):
-            now = datetime.datetime.now()
-            file = open("건의log.txt", 'r')
-            text=file.read()
-            file.close()
-            update.message.reply_text("로그 내용을 불러옵니다 : \n%s" %text) #로그 내용 전송
-            print("%s 님에 의해 로그가 조회됨." %(chat_id)) #터미널에 출력
-        else:
-            update.message.reply_text("권한이 없습니다.") #원치 않는 사람 접근시 전송
-            print("%s 님은 로그에 접근 권한이 없습니다." %(chat_id))
-
+        
+    
     #포털 사이트
     if update.message.text[0:2]=="구글" or update.message.text[0:6]=="google" or update.message.text[0:6]=="Google":
         update.message.reply_text("Google\nhttps://www.google.com/")
@@ -369,11 +297,11 @@ def get_message(bot, update) :
 
     #기본 대화
     if update.message.text[0:2]=="안녕":
-        update.message.reply_text("안녕하세요! 전 경덕중학교 급식봇입니다!")
+        update.message.reply_text("안녕하세요! 전 성복중학교 급식봇입니다!")
     if update.message.text[0]=="넌":
-        update.message.reply_text("전 경덕중학교 급식봇이라 합니다!")
-    if update.message.text[0:3]=="경덕중":
-        update.message.reply_text("경덕중학교 공식사이트\nhttp://school.gyo6.net/adgd/")
+        update.message.reply_text("전 성복중학교 급식봇이라 합니다!")
+    if update.message.text[0:3]=="성복중":
+        update.message.reply_text("성복중학교 공식 홈페이지\nhttp://www.sungbok.ms.kr/")
 
     #chat_id 알려주기
     if update.message.text[0:2]=="id":
