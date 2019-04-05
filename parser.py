@@ -11,10 +11,10 @@ def get_diet(code, ymd, weekday):
     else:
         num = weekday + 1 #int 요청할 날짜의 요일 0월1화2수3목4금5토6일 파싱한 데이터의 배열이 일요일부터 시작되므로 1을 더해줍니다.
         URL = (
-                "https://stu.gbe.kr/sts_sci_md01_001.do?"
+                "https://stu.goe.go.kr/edusys.jsp?page=sts_m42320"
                 "schulCode=R100000897"
-                "&schulCrseScCode=4" 
-                "&schulKndScCode=04"
+                "&schulCrseScCode=3" 
+                "&schulKndScCode=03"
                 "&schMmealScCode=%d&schYmd=%s" % (schMmealScCode, schYmd)
             )
         #https://stu.gbe.kr/sts_sci_md01_001.do?  관할 교육청 주소 확인해주세요.
